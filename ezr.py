@@ -321,14 +321,14 @@ def explore(self:COL, other:COL, n=20):
   return min([self.guess() for _ in range(n)], key=key)
 #
 # ## Distance 
-@of("Between two values (Aha's algorithm).")
+@of("Between two values (Aha's algorithm).") #normalizer the number 0 and 1 
 def dist(self:COL, x:any, y:any) -> float:
   return 1 if x==y=="?" else self.dist1(x,y)
 
 @of("Distance between two SYMs.")
 def dist1(self:SYM, x:number, y:number) -> float: return x != y
 
-@of("Distance between two NUMs.")
+@of("Distance between two NUMs.") # trying to compare the number x and y 
 def dist1(self:NUM, x:number, y:number) -> float:
   x, y = self.norm(x), self.norm(y)
   x = x if x !="?" else (1 if y<0.5 else 0)
@@ -336,8 +336,8 @@ def dist1(self:NUM, x:number, y:number) -> float:
   return abs(x-y)
 
 @of("Euclidean distance between two rows.")
-def dist(self:DATA, r1:row, r2:row) -> float:
-  n = sum(c.dist(r1[c.at], r2[c.at])**the.p for c in self.cols.x)
+def dist(self:DATA, r1:row, r2:row) -> float: # I got 2 row, how can compute. x = independent variable.
+  n = sum(c.dist(r1[c.at], r2[c.at])**the.p for c in self.cols.x) #the.p : if p is 1, then n weill become
   return (n / len(self.cols.x))**(1/the.p)
 
 @of("Sort rows randomly")
@@ -425,8 +425,8 @@ class CLUSTER:
 
 @of("Return two distant rows, optionally sorted into best, then rest")
 def twoFar(self:DATA, rows:rows, sortp=False, samples:int=None) -> tuple[row,row] :
-  left, right =  max(((one(rows), one(rows)) for _ in range(samples or the.fars)),
-                       key= lambda two: self.dist(*two))
+  left, right =  max(((one(rows), one(rows)) for _ in range(samples or the.fars)), #what is the key do for max()
+                       key= lambda two: self.dist(*two))# two is two point
   if sortp and self.chebyshev(right) < self.chebyshev(left): right,left = left,right
   return left, right
 
