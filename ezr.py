@@ -484,7 +484,7 @@ def branch(self:DATA, region:rows=None, stop=None, used=[], evals=1):
         return [r for r in self.rows if r not in used], used
 
 le = lambda x,y: x <= y
-gt = lambda x,y: x >  y
+gt = lambda x,y: x >  y # everything is lambda body
 
 @of("Diversity sampling (one per items).")
 def diversity(self:DATA, rows:rows=None, stop=None):
