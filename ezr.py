@@ -141,14 +141,14 @@ class COLS:
   # Upper case names are NUMerics. Anything ending in `+` or `-` is a goal to
   # be maximized of minimized. Anything ending in `X` is ignored.
   def __post_init__(self:COLS) -> None:
-    for at,txt in enumerate(self.names):
-      a,z = txt[0],txt[-1]
-      col = (NUM if a.isupper() else SYM)(at=at, txt=txt)
-      self.all.append(col)
-      if z != "X":
+    for at,txt in enumerate(self.names): #Over all the names, we know each name and its column number
+      a,z = txt[0],txt[-1]# a and z, we gonna need that for what happens next
+      col = (NUM if a.isupper() else SYM)(at=at, txt=txt)#
+      self.all.append(col)#we keep that column,we now having the dot all that columns
+      if z != "X": #with things we are ignoring.
         (self.y if z in "!+-" else self.x).append(col)
-        if z=="!": self.klass = col
-        if z=="-": col.goal = 0
+        if z=="!": self.klass = col # 
+        if z=="-": col.goal = 0 # We actually don't need 151
 #
 # DATAs store `rows`, which are summarized in `cols`.
 @dataclass
